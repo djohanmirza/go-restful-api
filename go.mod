@@ -6,12 +6,9 @@ require (
 	github.com/go-playground/validator/v10 v10.9.0
 	github.com/go-sql-driver/mysql v1.9.0
 	github.com/gofiber/fiber/v2 v2.52.6
-<<<<<<< HEAD
-=======
 	github.com/golang/mock v1.6.0
->>>>>>> e1936bc3f26fda82e78e1c6def74a6990cf9675c
 	github.com/google/wire v0.6.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.9.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
@@ -37,5 +34,5 @@ require (
 	golang.org/x/crypto v0.33.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

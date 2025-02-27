@@ -13,29 +13,30 @@ import (
 	"testing"
 )
 
-func setupTestApp(mockService *mocks.MockCategoryService) *fiber.App {
+func setupCustomerTestApp(mockService *mocks.MockCustomerService) *fiber.App {
 	app := fiber.New()
-	categoryController := NewCategoryController(mockService)
+	customerController := NewCustomerController(mockService)
 
 	api := app.Group("/api")
-	categories := api.Group("/categories")
-	categories.Post("/", categoryController.Create)
-	categories.Put("/:categoryId", categoryController.Update)
-	categories.Delete("/:categoryId", categoryController.Delete)
-	categories.Get("/:categoryId", categoryController.FindById)
-	categories.Get("/", categoryController.FindAll)
+	customers := api.Group("/customers")
+	customers.Post("/", customerController.Create)
+	customers.Put("/:customerId", customerController.Update)
+	customers.Delete("/:customerId", customerController.Delete)
+	customers.Get("/:customerId", customerController.FindById)
+	customers.Get("/", customerController.FindAll)
 
 	return app
 }
 
-func TestCategoryController(t *testing.T) {
+func TestCustomerController(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockService := mocks.NewMockCategoryService(ctrl)
-	app := setupTestApp(mockService)
+	mockService := mocks.NewMockCustomerService(ctrl)
+	app := setupCustomerTestApp(mockService)
 
 	tests := []struct {
+		id             uint64
 		name           string
 		method         string
 		url            string
@@ -45,20 +46,20 @@ func TestCategoryController(t *testing.T) {
 		expectedBody   web.WebResponse
 	}{
 		{
-			name:   "Update category - success",
-			method: "PUT",
-			url:    "/api/categories/1",
-			body:   web.CategoryUpdateRequest{Id: 1, Name: "Updated"},
+			name:   "Create customer - success",
+			method: "POST",
+			url:    "/api/customers/",
+			body:   web.CustomerCreateRequest{Name: "John Doe", Email: "john@example.com"},
 			setupMock: func() {
 				mockService.EXPECT().
-					Update(gomock.Any(), gomock.Any()).
-					Return(web.CategoryResponse{Id: 1, Name: "Updated"}, nil)
+					Create(gomock.Any(), gomock.Any()).
+					Return(web.CustomerResponse{CustomerID: 1, Name: "John Doe", Email: "john@example.com"}, nil)
 			},
-			expectedStatus: http.StatusOK,
+			expectedStatus: http.StatusCreated,
 			expectedBody: web.WebResponse{
-				Code:   http.StatusOK,
-				Status: "OK",
-				Data:   web.CategoryResponse{Id: 1, Name: "Updated"},
+				Code:   http.StatusCreated,
+				Status: "Created",
+				Data:   web.CustomerResponse{CustomerID: 1, Name: "John Doe", Email: "john@example.com"},
 			},
 		},
 	}
@@ -82,9 +83,10 @@ func TestCategoryController(t *testing.T) {
 			json.NewDecoder(resp.Body).Decode(&respBody)
 
 			if dataMap, ok := respBody.Data.(map[string]interface{}); ok {
-				respBody.Data = web.CategoryResponse{
-					Id:   uint64(dataMap["id"].(float64)),
-					Name: dataMap["name"].(string),
+				respBody.Data = web.CustomerResponse{
+					CustomerID: uint64(dataMap["customer_id"].(float64)),
+					Name:       dataMap["name"].(string),
+					Email:      dataMap["email"].(string),
 				}
 			}
 

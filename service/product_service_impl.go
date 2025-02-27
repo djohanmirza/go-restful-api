@@ -30,12 +30,11 @@ func (service *ProductServiceImpl) Create(ctx context.Context, request web.Produ
 	}
 
 	product := domain.Product{
-		//ProductID:   request.ProductID,
 		Name:        request.Name,
 		Description: request.Description,
 		Price:       request.Price,
 		StockQty:    request.StockQty,
-		Category:    request.Category,
+		CategoryId:  request.CategoryID,
 		SKU:         request.SKU,
 		TaxRate:     request.TaxRate,
 	}
@@ -64,7 +63,7 @@ func (service *ProductServiceImpl) Update(ctx context.Context, request web.Produ
 	product.Description = request.Description
 	product.Price = request.Price
 	product.StockQty = request.StockQty
-	product.Category = request.Category
+	product.CategoryId = request.CategoryID
 	product.SKU = request.SKU
 	product.TaxRate = request.TaxRate
 

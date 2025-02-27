@@ -9,7 +9,7 @@ type CustomerCreateRequest struct {
 }
 
 type CustomerResponse struct {
-	CustomerID string `json:"customer_id"`
+	CustomerID uint64 `json:"customer_id"`
 	Name       string `json:"name"`
 	Email      string `json:"email"`
 	Phone      string `json:"phone"`
@@ -18,7 +18,7 @@ type CustomerResponse struct {
 }
 
 type CustomerUpdateRequest struct {
-	CustomerID string `validate:"required" json:"customer_id"`
+	CustomerID uint64 `validate:"required" json:"customer_id"`
 	Name       string `validate:"required,max=100,min=1" json:"name"`
 	Email      string `validate:"required,email" json:"email"`
 	Phone      string `validate:"required" json:"phone"`

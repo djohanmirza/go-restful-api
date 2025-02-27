@@ -10,6 +10,7 @@ import (
 	"github.com/aronipurwanto/go-restful-api/repository"
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
+	"strconv"
 )
 
 type CustomerServiceImpl struct {
@@ -30,7 +31,6 @@ func (service *CustomerServiceImpl) Create(ctx context.Context, request web.Cust
 	}
 
 	customer := domain.Customer{
-		//CustomerID: request.CustomerID,
 		Name:       request.Name,
 		Email:      request.Email,
 		Phone:      request.Phone,
@@ -51,7 +51,7 @@ func (service *CustomerServiceImpl) Update(ctx context.Context, request web.Cust
 		return web.CustomerResponse{}, err
 	}
 
-	customer, err := service.CustomerRepository.FindById(ctx, request.CustomerID)
+	customer, err := service.CustomerRepository.FindById(ctx, strconv.FormatUint(request.CustomerID, 10))
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return web.CustomerResponse{}, exception.NewNotFoundError("Customer not found")
 	} else if err != nil {

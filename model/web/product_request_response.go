@@ -5,7 +5,7 @@ type ProductCreateRequest struct {
 	Description string  `json:"description"`
 	Price       float64 `validate:"required,gt=0" json:"price"`
 	StockQty    int     `validate:"required,gte=0" json:"stock_qty"`
-	Category    string  `json:"category"`
+	CategoryID  int     `json:"category"`
 	SKU         string  `json:"sku"`
 	TaxRate     float64 `json:"tax_rate"`
 }
@@ -16,7 +16,7 @@ type ProductResponse struct {
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	StockQty    int     `json:"stock_qty"`
-	Category    string  `json:"category"`
+	CategoryID  int     `json:"category"`
 	SKU         string  `json:"sku"`
 	TaxRate     float64 `json:"tax_rate"`
 }
@@ -27,7 +27,7 @@ type ProductUpdateRequest struct {
 	Description string  `json:"description"`
 	Price       float64 `validate:"required,gt=0" json:"price"`
 	StockQty    int     `validate:"required,gte=0" json:"stock_qty"`
-	Category    string  `json:"category"`
+	CategoryID  int     `json:"category"`
 	SKU         string  `json:"sku"`
 	TaxRate     float64 `json:"tax_rate"`
 }
