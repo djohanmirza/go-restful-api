@@ -56,7 +56,7 @@ func (controller *CategoryControllerImpl) Update(c *fiber.Ctx) error {
 		})
 	}
 
-	id, err := strconv.Atoi(c.Params("categoryId"))
+	id, err := strconv.ParseUint(c.Params("categoryId"), 10, 64)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(web.WebResponse{
 			Code:   fiber.StatusBadRequest,
@@ -91,7 +91,7 @@ func (controller *CategoryControllerImpl) Update(c *fiber.Ctx) error {
 
 // Delete Category
 func (controller *CategoryControllerImpl) Delete(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("categoryId"))
+	id, err := strconv.ParseUint(c.Params("categoryId"), 10, 64)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(web.WebResponse{
 			Code:   fiber.StatusBadRequest,
@@ -124,7 +124,7 @@ func (controller *CategoryControllerImpl) Delete(c *fiber.Ctx) error {
 
 // Find Category By ID
 func (controller *CategoryControllerImpl) FindById(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("categoryId"))
+	id, err := strconv.ParseUint(c.Params("categoryId"), 10, 64)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(web.WebResponse{
 			Code:   fiber.StatusBadRequest,

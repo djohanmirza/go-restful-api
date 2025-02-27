@@ -40,7 +40,7 @@ func (repository *CategoryRepositoryImpl) Delete(ctx context.Context, category d
 }
 
 // FindById - Get category by ID
-func (repository *CategoryRepositoryImpl) FindById(ctx context.Context, categoryId int) (domain.Category, error) {
+func (repository *CategoryRepositoryImpl) FindById(ctx context.Context, categoryId uint64) (domain.Category, error) {
 	var category domain.Category
 	err := repository.db.WithContext(ctx).First(&category, categoryId).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {

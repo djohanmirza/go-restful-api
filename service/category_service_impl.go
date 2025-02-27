@@ -62,7 +62,7 @@ func (service *CategoryServiceImpl) Update(ctx context.Context, request web.Cate
 }
 
 // Delete Category
-func (service *CategoryServiceImpl) Delete(ctx context.Context, categoryId int) error {
+func (service *CategoryServiceImpl) Delete(ctx context.Context, categoryId uint64) error {
 	category, err := service.CategoryRepository.FindById(ctx, categoryId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return exception.NewNotFoundError("Category not found")
@@ -74,7 +74,7 @@ func (service *CategoryServiceImpl) Delete(ctx context.Context, categoryId int) 
 }
 
 // Find Category By ID
-func (service *CategoryServiceImpl) FindById(ctx context.Context, categoryId int) (web.CategoryResponse, error) {
+func (service *CategoryServiceImpl) FindById(ctx context.Context, categoryId uint64) (web.CategoryResponse, error) {
 	category, err := service.CategoryRepository.FindById(ctx, categoryId)
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return web.CategoryResponse{}, exception.NewNotFoundError("Category not found")

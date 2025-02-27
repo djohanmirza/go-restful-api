@@ -1,6 +1,7 @@
 package domain
 
 type Category struct {
-	Id   int    `gorm:"primary_key; column:id"`
-	Name string `gorm:"column:name"`
+	Id      uint64    `gorm:"primary_key;autoIncrement;column:id"`
+	Name    string    `gorm:"column:name"`
+	Product []Product `gorm:"foreignkey:CategoryId;references:Id"`
 }
